@@ -13,7 +13,7 @@
     3. Proof strip            ✅ this file
     4. Header & navigation    ✅ this file
     5. Theme toggle           ✅ this file
-    6. Work cards & tags      ⏳ next sprint
+    6. Work cards & tags      ✅ this file
     7. Skills & social links  ⏳ next sprint
     8. Footer chrome          ⏳ next sprint
 
@@ -338,4 +338,183 @@
   background-color: transparent;
   box-shadow:
     inset calc(-1 * var(--space-sm)) 0 0 0 currentColor;
+}
+
+
+/* ==========================================================================
+   6. WORK CARDS & TECHNOLOGY TAGS
+   ==========================================================================
+   The project cards in the Selected Work grid and the tech tags inside
+   them. The grid itself (columns, gap) is layout.css's .grid-2; the
+   card's internal rhythm is layout.css's .stack. This section owns
+   only the card's SURFACE, its hover feel, and the tag pills.
+
+   Hover is deliberately quiet — a hairline that firms up, a whisper of
+   elevation, and a 2px lift. Calm, not bouncy. The whole card is a
+   click target via a stretched link (see .work-card__link), so the
+   hover reads as one confident surface rather than fussy sub-parts.
+
+       <article class="work-card">
+         <div class="work-card__body stack">
+           <h3 class="work-card__title">
+             <a class="work-card__link" href="…">Project name</a>
+           </h3>
+           <p class="work-card__desc text-muted">…</p>
+           <ul class="cluster" aria-label="Technologies used">
+             <li class="tag">JavaScript</li>
+           </ul>
+           <p><a class="work-card__cta" href="…">View case study</a></p>
+         </div>
+       </article>
+   ========================================================================== */
+
+.work-card {
+  position: relative;                 /* anchor for the stretched link */
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+
+  /* Transition the calm properties only. Transform is added inside the
+     motion-safe block below so reduced-motion visitors never move. */
+  transition:
+    border-color var(--duration-base) var(--ease-standard),
+    box-shadow var(--duration-base) var(--ease-standard);
+}
+
+.work-card__body {
+  /* Card padding: generous on desktop, snug on phones. Whitespace is
+     the premium signal here — resist the urge to tighten it. */
+  padding: var(--space-lg);
+}
+
+@media (min-width: 640px) {
+  .work-card__body {
+    padding: var(--space-xl);
+  }
+}
+
+/* -- Hover / focus-within --------------------------------------------------
+   border firms up + a soft raise. focus-within means a keyboard user
+   tabbing to the card's link gets the SAME emphasis a mouse user does. */
+.work-card:hover,
+.work-card:focus-within {
+  border-color: var(--color-border-strong);
+  box-shadow: var(--shadow-raise);
+}
+
+/* The 2px lift is motion, so it's opt-in: present only when the visitor
+   hasn't asked for reduced motion. Everything above still applies to
+   everyone — reduced-motion users get the elevation, just not the move. */
+@media (prefers-reduced-motion: no-preference) {
+  .work-card {
+    transition:
+      border-color var(--duration-base) var(--ease-standard),
+      box-shadow var(--duration-base) var(--ease-standard),
+      transform var(--duration-base) var(--ease-standard);
+  }
+
+  .work-card:hover,
+  .work-card:focus-within {
+    transform: translateY(-2px);
+  }
+}
+
+/* -- Title & stretched link ------------------------------------------------
+   The title link stretches to cover the whole card, so clicking
+   anywhere opens the project — but the visible text stays just the
+   title (screen readers read only the title, not the entire card). */
+.work-card__title {
+  /* size/weight come from base.css h3 + the token scale; nothing to add */
+  margin: 0;
+}
+
+.work-card__link {
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.work-card__link::after {
+  content: "";
+  position: absolute;
+  inset: 0;                           /* cover the whole card */
+  border-radius: inherit;
+}
+
+.work-card:hover .work-card__link,
+.work-card:focus-within .work-card__link {
+  color: var(--color-accent);
+}
+
+/* -- Description -----------------------------------------------------------
+   Color comes from .text-muted in the markup. Keep the line length
+   comfortable inside the card without importing the prose measure. */
+.work-card__desc {
+  margin: 0;
+}
+
+/* -- Card CTA + arrow ------------------------------------------------------
+   "View case study →". The link sits ABOVE the stretched title overlay
+   (z-index) so it remains independently focusable/hoverable. The arrow
+   is a pseudo-element that nudges on hover — the one small motion that
+   says "this goes somewhere". */
+.work-card__cta {
+  position: relative;
+  z-index: var(--z-raised);           /* above the stretched-link overlay */
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-accent);
+  text-decoration: none;
+}
+
+.work-card__cta::after {
+  content: "\2192";                   /* → rightwards arrow */
+  transition: transform var(--duration-fast) var(--ease-standard);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .work-card__cta:hover::after {
+    transform: translateX(var(--space-xs));
+  }
+}
+
+/* -- External link arrow (opt-in) -----------------------------------------
+   Add class="work-card__cta is-external" for links that leave the site
+   (e.g. straight to a live demo or GitHub). Swaps the arrow for a
+   diagonal one — the web's shared sign for "opens elsewhere". */
+.work-card__cta.is-external::after {
+  content: "\2197";                   /* ↗ north-east arrow */
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .work-card__cta.is-external:hover::after {
+    transform: translate(var(--space-xs), calc(-1 * var(--space-xs)));
+  }
+}
+
+
+/* -- TECHNOLOGY TAGS -------------------------------------------------------
+   Small monospace pills. The wrapping row is .cluster in the markup;
+   this styles the pill itself. Semantic <li> tags inside a labelled
+   <ul> — a real list of technologies, announced as such. */
+.tag {
+  display: inline-flex;
+  align-items: center;
+
+  padding: var(--space-xs) var(--space-sm);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+
+  font-family: var(--font-mono);
+  font-size: var(--font-size-meta);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-meta);
+  letter-spacing: var(--letter-spacing-meta);
+  color: var(--color-text-muted);
+
+  white-space: nowrap;                /* a tag never breaks mid-word */
 }
