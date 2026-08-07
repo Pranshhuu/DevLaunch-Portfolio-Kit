@@ -1,0 +1,321 @@
+/* ==========================================================================
+   DevLaunch Portfolio Kit — layout.css
+   ==========================================================================
+   ⚠️ EDIT CAREFULLY.
+   This file is the kit's skeleton: where things SIT, never how they
+   LOOK. It positions and spaces; colors, type, and component chrome
+   live elsewhere (tokens.css, typography.css, components.css).
+
+   WHAT LIVES IN THIS FILE
+   -----------------------
+    1. Page shell               (.page, .site-main — sticky footer)
+    2. Sections & rhythm        (.section, .section__header, .hero)
+    3. Container gutters        (widening at the md breakpoint)
+    4. Grid primitives          (.grid, .grid-2, .grid-3, .grid-auto)
+    5. Stack                    (vertical spacing groups)
+    6. Cluster                  (wrapping horizontal groups)
+    7. Sidebar layout           (.with-sidebar)
+    8. Header & footer helpers  (position + arrangement only)
+    9. Breakpoint adjustments   (640px and 1024px — the only two)
+
+   TWO KINDS OF VARIABLES YOU'LL SEE
+   ---------------------------------
+   • DESIGN TOKENS  → var(--space-xl), var(--z-header)… defined in
+     tokens.css. Never redefined here, with ONE sanctioned exception:
+     --gutter widens at ≥640px, exactly as promised in tokens.css §10.
+   • LAYOUT PARAMETERS → --stack-space, --grid-min, --sidebar-width…
+     defined and documented in THIS file. They are adjustable knobs on
+     a layout primitive, with safe defaults drawn from tokens. Override
+     them per-instance in your HTML if you need to:
+
+         <div class="stack" style="--stack-space: var(--space-2xl)">
+
+   RULES THIS FILE OBEYS
+   ---------------------
+   • Mobile-first: base styles are the phone layout; media queries
+     only ever ADD for larger screens.
+   • Only the two official breakpoints (640px / 1024px) appear here.
+   • No colors, no typography, no component chrome, no animation.
+   • Sections own their OWN vertical padding — never margins that push
+     neighbors — so any section can be deleted or reordered safely.
+   ========================================================================== */
+
+
+/* ==========================================================================
+   1. PAGE SHELL
+   ==========================================================================
+   Structure every page uses:
+
+       <body>
+         <a class="skip-link" href="#main">…</a>
+         <div class="page">
+           <header class="site-header">…</header>
+           <main class="site-main" id="main" tabindex="-1">…</main>
+           <footer class="site-footer">…</footer>
+         </div>
+       </body>
+
+   The flex column + growing main pins the footer to the bottom of the
+   viewport even on short pages (the classic "sticky footer" — solved
+   in three declarations).
+   ========================================================================== */
+
+.page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.site-main {
+  flex-grow: 1;
+}
+
+
+/* ==========================================================================
+   2. SECTIONS & VERTICAL RHYTHM
+   ==========================================================================
+   Every top-level block of the page is a .section. Each one owns its
+   own top AND bottom padding, which is why the "delete any section /
+   reorder any section" guarantee holds: no section ever depends on a
+   neighbor for its spacing.
+   ========================================================================== */
+
+.section {
+  padding-block: var(--space-4xl);   /* 64px on mobile; 96px ≥1024px (§9) */
+}
+
+/* The heading group at the top of a section (eyebrow + title + intro).
+   Owns the gap between a section's title and its content. */
+.section__header {
+  margin-block-end: var(--space-3xl);
+}
+
+/* -- Hero ----------------------------------------------------------------- */
+
+/* The hero is a .section with more breathing room — the one place the
+   layout is allowed to feel expansive. Its children stack with a
+   consistent gap; the hero itself stays in normal document flow. */
+
+.hero {
+  padding-block: var(--space-5xl);   /* grows to 128px on desktop (§9) */
+}
+
+.hero__inner {
+  display: grid;
+  gap: var(--space-lg);
+  justify-items: start;              /* left-aligned — quietly confident,
+                                        never center-stage shouty */
+}
+
+
+/* ==========================================================================
+   3. CONTAINER GUTTERS
+   ==========================================================================
+   .container and .container-wide are defined in base.css and read
+   their horizontal padding from --gutter. Here is the single
+   sanctioned token override in the kit: on wider screens the page
+   breathes more at the edges. (Promised in tokens.css §10.)
+   ========================================================================== */
+
+@media (min-width: 640px) {
+  :root {
+    --gutter: var(--space-xl);       /* 16px → 24px page edges */
+  }
+}
+
+
+/* ==========================================================================
+   4. GRID PRIMITIVES
+   ==========================================================================
+   All grids collapse to a single column on mobile and gain columns at
+   the official breakpoints. Gap is a parameter with a token default.
+   ========================================================================== */
+
+.grid {
+  --grid-gap: var(--space-xl);
+  display: grid;
+  gap: var(--grid-gap);
+}
+
+/* Two columns from 640px — the work grid uses this */
+.grid-2 {
+  --grid-gap: var(--space-xl);
+  display: grid;
+  gap: var(--grid-gap);
+}
+
+/* Three columns: 1 on mobile → 2 from 640px → 3 from 1024px.
+   Good for skill groups and proof strips. */
+.grid-3 {
+  --grid-gap: var(--space-xl);
+  display: grid;
+  gap: var(--grid-gap);
+}
+
+@media (min-width: 640px) {
+  .grid-2 { grid-template-columns: repeat(2, 1fr); }
+  .grid-3 { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (min-width: 1024px) {
+  .grid-3 { grid-template-columns: repeat(3, 1fr); }
+}
+
+/* -- Auto-fit grid -------------------------------------------------------- */
+
+/* Columns appear and disappear based on available space — no media
+   queries involved. --grid-min is the smallest a column may shrink
+   before the grid drops a column. The min(100%, …) guard stops
+   overflow on screens narrower than --grid-min itself. */
+
+.grid-auto {
+  --grid-min: 15rem;                 /* layout parameter — tune per use */
+  --grid-gap: var(--space-xl);
+  display: grid;
+  gap: var(--grid-gap);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--grid-min)), 1fr));
+}
+
+
+/* ==========================================================================
+   5. STACK
+   ==========================================================================
+   Vertical group with even spacing between children — the workhorse
+   inside cards, forms, and columns. Spacing comes from the gap between
+   siblings, so first/last children never carry stray margins:
+
+       <div class="stack">
+         <p>…</p>
+         <p>…</p>
+       </div>
+   ========================================================================== */
+
+.stack {
+  --stack-space: var(--space-lg);
+  display: flex;
+  flex-direction: column;
+}
+
+.stack > * + * {
+  margin-block-start: var(--stack-space);
+}
+
+/* Preset gaps for the common cases */
+.stack-sm  { --stack-space: var(--space-sm); }
+.stack-xl  { --stack-space: var(--space-xl); }
+.stack-2xl { --stack-space: var(--space-2xl); }
+
+
+/* ==========================================================================
+   6. CLUSTER
+   ==========================================================================
+   Horizontal group that wraps gracefully: tag rows, social links,
+   meta rows (date · reading time), button pairs. Never overflows —
+   items simply wrap to the next line on narrow screens.
+   ========================================================================== */
+
+.cluster {
+  --cluster-space: var(--space-sm);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--cluster-space);
+}
+
+/* Preset gaps */
+.cluster-lg { --cluster-space: var(--space-lg); }
+
+/* Push the items after the spacer to the far end — e.g. a header row
+   with a title on the left and an action on the right */
+.cluster__spacer {
+  margin-inline-start: auto;
+}
+
+
+/* ==========================================================================
+   7. SIDEBAR LAYOUT
+   ==========================================================================
+   Two elements side by side while there's room; stacked when there
+   isn't — WITHOUT a media query, so it responds to its container,
+   not the viewport. Used in case studies (meta rail + prose).
+
+       <div class="with-sidebar">
+         <aside>…</aside>   ← takes --sidebar-width when side-by-side
+         <div>…</div>       ← takes the rest; wraps under at ~50%
+       </div>
+   ========================================================================== */
+
+.with-sidebar {
+  --sidebar-width: 15rem;            /* layout parameter — tune per use */
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2xl);
+}
+
+.with-sidebar > :first-child {
+  flex-basis: var(--sidebar-width);
+  flex-grow: 1;
+}
+
+.with-sidebar > :last-child {
+  flex-basis: 0;
+  flex-grow: 999;                    /* hogs all spare space… */
+  min-inline-size: 50%;              /* …until half-width, then wraps */
+}
+
+
+/* ==========================================================================
+   8. HEADER & FOOTER HELPERS
+   ==========================================================================
+   Position and arrangement ONLY. The header's surface, border, and
+   the nav's look are component chrome → components.css.
+   ========================================================================== */
+
+/* Sticky header: stays put while the page scrolls beneath it */
+.site-header {
+  position: sticky;
+  inset-block-start: 0;
+  z-index: var(--z-header);
+}
+
+/* One row: identity on the left, nav + actions on the right */
+.site-header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-lg);
+  padding-block: var(--space-md);
+}
+
+/* Footer arrangement: wraps into a column naturally on small screens */
+.site-footer__inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-lg);
+  padding-block: var(--space-2xl);
+}
+
+
+/* ==========================================================================
+   9. BREAKPOINT ADJUSTMENTS
+   ==========================================================================
+   The desktop rhythm upgrade. 640px (grids, gutters) is handled in
+   sections above; 1024px below is purely about generosity — more air
+   between sections once the screen can afford it.
+
+   These are the ONLY two breakpoints in the kit (tokens.css §11).
+   A third one appearing anywhere is a bug.
+   ========================================================================== */
+
+@media (min-width: 1024px) {
+
+  .section {
+    padding-block: var(--space-5xl); /* 64px → 96px between sections */
+  }
+
+  .hero {
+    padding-block: var(--space-6xl); /* 96px → 128px around the hero */
+  }
+}
