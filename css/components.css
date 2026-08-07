@@ -12,7 +12,7 @@
     2. Availability badge     ✅ this file
     3. Proof strip            ✅ this file
     4. Header & navigation    ✅ this file
-    5. Theme toggle           ⏳ next sprint
+    5. Theme toggle           ✅ this file
     6. Work cards & tags      ⏳ next sprint
     7. Skills & social links  ⏳ next sprint
     8. Footer chrome          ⏳ next sprint
@@ -259,3 +259,83 @@
   color: var(--color-text);
 }
 
+
+/* ==========================================================================
+   5. THEME TOGGLE
+   ==========================================================================
+   The light/dark switch in the header. It's a real <button> (keyboard
+   and screen-reader support come for free); js/theme.js keeps its
+   aria-label and aria-pressed in sync. This section styles the control
+   and swaps the icon based on the document's data-theme.
+
+   Fixed square dimensions and a single glyph mean the icon swap causes
+   ZERO layout shift — the button never changes size between themes.
+
+       <button class="theme-toggle" type="button" data-theme-toggle>
+         <span class="theme-toggle__icon" aria-hidden="true"></span>
+         <span class="visually-hidden">Switch color theme</span>
+       </button>
+   ========================================================================== */
+
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  /* Fixed 44px square: meets the touch-target minimum (a11y constant,
+     see file header) and locks the size so nothing reflows on toggle. */
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+
+  background-color: transparent;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  color: var(--color-text-muted);
+  cursor: pointer;
+
+  transition:
+    background-color var(--duration-fast) var(--ease-standard),
+    border-color var(--duration-fast) var(--ease-standard),
+    color var(--duration-fast) var(--ease-standard);
+}
+
+.theme-toggle:hover {
+  border-color: var(--color-border-strong);
+  color: var(--color-text);
+}
+
+/* -- Icon ------------------------------------------------------------------
+   One glyph, drawn with CSS so the kit ships no icon files. The base
+   shape is a circle; in dark mode a "bite" is carved out with a second
+   shadow to read as a crescent moon. Sun (light) → moon (dark).
+   Only opacity/shape tokens are used — no color literals. */
+
+.theme-toggle__icon {
+  position: relative;
+  width: var(--space-lg);
+  height: var(--space-lg);
+  border-radius: var(--radius-full);
+
+  /* LIGHT THEME = sun: a filled disc with a ring of short rays created
+     from stacked box-shadows in the current text color. */
+  background-color: currentColor;
+  box-shadow:
+    0 calc(-1 * var(--space-md)) 0 calc(-1 * var(--space-xs)) currentColor,
+    0 var(--space-md) 0 calc(-1 * var(--space-xs)) currentColor,
+    calc(-1 * var(--space-md)) 0 0 calc(-1 * var(--space-xs)) currentColor,
+    var(--space-md) 0 0 calc(-1 * var(--space-xs)) currentColor;
+
+  transition:
+    background-color var(--duration-base) var(--ease-standard),
+    box-shadow var(--duration-base) var(--ease-standard);
+}
+
+/* DARK THEME = moon: drop the rays and carve a crescent by offsetting
+   an inset shadow in the surface color. The button size is unchanged,
+   so the swap costs nothing in layout. */
+[data-theme="dark"] .theme-toggle__icon {
+  background-color: transparent;
+  box-shadow:
+    inset calc(-1 * var(--space-sm)) 0 0 0 currentColor;
+}
