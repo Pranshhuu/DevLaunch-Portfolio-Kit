@@ -1,0 +1,22 @@
+# macOS
+.DS_Store
+
+# VS Code
+.vscode/
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+
+# Node (future-proof)
+node_modules/
+
+# Environment files
+.env
+.env.local
+
+# Build folders
+dist/
+build/
