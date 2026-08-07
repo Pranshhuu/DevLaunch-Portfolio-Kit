@@ -1,0 +1,290 @@
+/* ==========================================================================
+   DevLaunch Portfolio Kit — typography.css
+   ==========================================================================
+   ⚠️ EDIT CAREFULLY.
+   This file is the kit's typographic voice. It consumes tokens from
+   css/tokens.css only — to change how type LOOKS (sizes, weights,
+   colors), edit tokens or swap a theme. Edit this file only to change
+   how type BEHAVES (rhythm, patterns, utilities).
+
+   WHAT LIVES IN THIS FILE
+   -----------------------
+    1. The class scale          (.text-display … .text-h6)
+    2. Body, lead & small text  (.text-body, .text-lead, .text-small)
+    3. Voice utilities          (.text-muted, .text-mono)
+    4. The eyebrow pattern      (.eyebrow — the kit's signature label)
+    5. Alignment utilities
+    6. Wrapping & balance utilities
+    7. Rich prose               (.prose — long-form reading rhythm)
+
+   HOW THIS RELATES TO base.css
+   ----------------------------
+   base.css styles the ELEMENTS (a bare <h2> already looks right).
+   This file adds CLASSES for when visual size and semantic level must
+   differ — e.g. an <h2> inside a card that should LOOK like an h3:
+
+       <h2 class="text-h3">Project title</h2>
+
+   That keeps the heading OUTLINE correct for screen readers while the
+   VISUAL hierarchy serves the design. Never skip heading levels in
+   HTML to change appearance — use these classes instead.
+
+   RULES THIS FILE OBEYS
+   ---------------------
+   • Tokens only — no raw colors, sizes, or spacing.
+   • No layout, no components — type and text rhythm only.
+   ========================================================================== */
+
+
+/* ==========================================================================
+   1. THE CLASS SCALE
+   ==========================================================================
+   One class per step of the type scale. Identical values to the
+   element defaults in base.css — repeated here on purpose (vanilla CSS
+   has no mixins) so any element can wear any size without changing
+   its semantics.
+   ========================================================================== */
+
+/* Display — the largest voice in the kit. Hero name only.
+   Using it twice on one page cheapens it. */
+.text-display {
+  font-size: var(--font-size-display);
+  font-weight: var(--font-weight-display);
+  line-height: var(--line-height-display);
+  letter-spacing: var(--letter-spacing-display);
+}
+
+/* Page titles — one per page */
+.text-h1 {
+  font-size: var(--font-size-h1);
+  font-weight: var(--font-weight-display);
+  line-height: var(--line-height-h1);
+  letter-spacing: var(--letter-spacing-h1);
+}
+
+/* Section titles */
+.text-h2 {
+  font-size: var(--font-size-h2);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-h2);
+  letter-spacing: var(--letter-spacing-h2);
+}
+
+/* Card and sub-block titles */
+.text-h3 {
+  font-size: var(--font-size-h3);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-h3);
+}
+
+/* Minor headings — steps down to body-size semibold rather than
+   inventing sizes outside the design system */
+.text-h4 {
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-h3);
+}
+
+.text-h5,
+.text-h6 {
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-small);
+}
+
+
+/* ==========================================================================
+   2. BODY, LEAD & SMALL TEXT
+   ========================================================================== */
+
+/* Reset any element back to default reading text */
+.text-body {
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-body);
+  letter-spacing: var(--letter-spacing-normal);
+}
+
+/* Lead paragraph — the hero tagline and section intros.
+   Slightly larger, slightly airier: signals "start reading here". */
+.text-lead {
+  font-size: var(--font-size-body-lg);
+  line-height: var(--line-height-body-lg);
+}
+
+/* Secondary information: dates in context, captions, fine print */
+.text-small {
+  font-size: var(--font-size-small);
+  line-height: var(--line-height-small);
+}
+
+
+/* ==========================================================================
+   3. VOICE UTILITIES
+   ========================================================================== */
+
+/* De-emphasized text. Guaranteed ≥ 4.5:1 contrast in every theme and
+   mode — that promise lives in the token, so this class is always safe. */
+.text-muted {
+  color: var(--color-text-muted);
+}
+
+/* Switch to the monospace voice without changing size — for file
+   names, versions, and technical inline details. (For the styled
+   label pattern, use .eyebrow below instead.) */
+.text-mono {
+  font-family: var(--font-mono);
+  letter-spacing: var(--letter-spacing-normal);
+}
+
+
+/* ==========================================================================
+   4. THE EYEBROW PATTERN
+   ==========================================================================
+   The kit's signature metadata voice: small tracked monospace, used
+   for section labels, dates, and tech tags. It sits ABOVE a heading
+   like an eyebrow sits above an eye — hence the name:
+
+       <p class="eyebrow">Selected Work</p>
+       <h2>Things I've built</h2>
+
+   Deliberately quiet: it whispers structure so headings can speak.
+   ========================================================================== */
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-meta);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-meta);
+  letter-spacing: var(--letter-spacing-meta);
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+
+/* ==========================================================================
+   5. ALIGNMENT UTILITIES
+   ==========================================================================
+   Logical properties (start/end) so the kit behaves correctly if a
+   buyer translates their portfolio into a right-to-left language.
+   ========================================================================== */
+
+.text-start  { text-align: start; }
+.text-center { text-align: center; }
+.text-end    { text-align: end; }
+
+
+/* ==========================================================================
+   6. WRAPPING & BALANCE UTILITIES
+   ==========================================================================
+   All three are progressive enhancements: browsers that don't support
+   them simply ignore them. Nothing breaks.
+   ========================================================================== */
+
+/* Even out ragged line lengths — headings get this automatically in
+   base.css; use the class for standalone taglines and quotes */
+.text-balance {
+  text-wrap: balance;
+}
+
+/* Nicer paragraph rag: avoids single-word last lines where supported */
+.text-pretty {
+  text-wrap: pretty;
+}
+
+/* Keep short fragments on one line: names, dates, "San Francisco, CA" */
+.text-nowrap {
+  white-space: nowrap;
+}
+
+
+/* ==========================================================================
+   7. RICH PROSE
+   ==========================================================================
+   Wrap long-form content — about section, case-study writeups — in
+   .prose and every element inside gets correct reading rhythm and a
+   comfortable line length automatically:
+
+       <div class="prose">
+         <p>…</p>
+         <h3>…</h3>
+         <p>…</p>
+       </div>
+
+   Outside .prose, elements carry no vertical margins (see base.css) —
+   cards, grids, and the footer stay in full control of their own
+   spacing. Reading rhythm is opt-in, and this is the opt-in.
+   ========================================================================== */
+
+.prose {
+  /* Comfortable measure: lines stay short enough to read effortlessly */
+  max-width: var(--measure);
+}
+
+/* -- Vertical rhythm ----------------------------------------------------- */
+
+/* The baseline beat: every element gets one unit of breathing room
+   from whatever came before it */
+.prose > * + * {
+  margin-block-start: var(--space-lg);
+}
+
+/* Headings need extra air ABOVE to visually attach to the content
+   BELOW them — this grouping is what makes long pages scannable */
+.prose > :is(h2, h3, h4, .text-h2, .text-h3, .text-h4) {
+  margin-block-start: var(--space-2xl);
+}
+
+/* …but not when a heading opens the prose block */
+.prose > :first-child {
+  margin-block-start: 0;
+}
+
+/* An eyebrow and its heading form one unit — pull them together */
+.prose > .eyebrow + :is(h2, h3, h4, .text-h2, .text-h3, .text-h4) {
+  margin-block-start: var(--space-sm);
+}
+
+/* -- Paragraphs ----------------------------------------------------------- */
+
+.prose p {
+  /* Nicer rag on every paragraph where supported */
+  text-wrap: pretty;
+}
+
+/* -- Links ---------------------------------------------------------------- */
+
+/* Links inherit their underline and colors from base.css. Inside long
+   text they get a touch more weight so they surface while scanning. */
+.prose a {
+  font-weight: var(--font-weight-medium);
+}
+
+/* -- Lists ---------------------------------------------------------------- */
+
+/* Bare lists inside prose already have bullets, indent, and item
+   spacing from base.css. Nested lists tuck in with a small gap. */
+.prose li > :is(ul, ol) {
+  margin-block-start: var(--space-sm);
+}
+
+/* -- Blockquotes ---------------------------------------------------------- */
+
+/* The border and muted color come from base.css; prose gives quotes
+   extra room so they read as a pause, not a paragraph */
+.prose blockquote {
+  margin-block: var(--space-xl);
+}
+
+.prose blockquote p {
+  font-size: var(--font-size-body-lg);
+  line-height: var(--line-height-body-lg);
+}
+
+/* -- Code ----------------------------------------------------------------- */
+
+/* Inline code chips and code blocks are fully styled in base.css;
+   prose only spaces the blocks into the reading rhythm */
+.prose pre {
+  margin-block: var(--space-xl);
+}
