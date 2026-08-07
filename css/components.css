@@ -11,7 +11,7 @@
     1. Buttons                ✅ this file
     2. Availability badge     ✅ this file
     3. Proof strip            ✅ this file
-    4. Header & navigation    ⏳ next sprint
+    4. Header & navigation    ✅ this file
     5. Theme toggle           ⏳ next sprint
     6. Work cards & tags      ⏳ next sprint
     7. Skills & social links  ⏳ next sprint
@@ -163,3 +163,99 @@
   letter-spacing: var(--letter-spacing-meta);
   color: var(--color-text-muted);
 }
+
+
+/* ==========================================================================
+   4. HEADER & NAVIGATION
+   ==========================================================================
+   The chrome for the sticky header. Position and row arrangement come
+   from layout.css (.site-header is already sticky at --z-header);
+   this section owns only how it LOOKS: surface, hairline, and links.
+
+   The surface is translucent with a backdrop blur where the browser
+   supports it — the Apple/Vercel "frosted" moment — and falls back to
+   the solid page background everywhere else. Both states are derived
+   from tokens, so every theme and mode gets the effect for free.
+   ========================================================================== */
+
+/* Solid fallback first (mobile-first AND capability-first) */
+.site-header {
+  background-color: var(--color-bg);
+  border-block-end: 1px solid var(--color-border);
+  transition: background-color var(--duration-base) var(--ease-standard);
+}
+
+/* Frosted upgrade: only when the browser can do BOTH the translucent
+   color mix and the blur. The blur radius is an effect constant (like
+   base.css's 1px hairlines) — no theme should ever vary it. */
+@supports (backdrop-filter: blur(1px)) and
+          (background-color: color-mix(in srgb, red 50%, transparent)) {
+  .site-header {
+    background-color: color-mix(in srgb, var(--color-bg) 85%, transparent);
+    -webkit-backdrop-filter: blur(8px) saturate(1.4);
+    backdrop-filter: blur(8px) saturate(1.4);
+  }
+}
+
+/* -- Brand ----------------------------------------------------------------- */
+
+/* Your name as the wordmark: quiet, solid, links back to the top.
+   No underline — in the header, position IS the affordance. */
+.brand {
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text);
+  text-decoration: none;
+  letter-spacing: var(--letter-spacing-h2);
+  transition: color var(--duration-fast) var(--ease-standard);
+}
+
+.brand:hover {
+  color: var(--color-text-muted);
+}
+
+/* -- Navigation ------------------------------------------------------------ */
+
+/* Three anchors don't justify a hamburger menu. On phones the nav
+   steps aside and the header CTA carries the action (blueprint
+   decision); from 640px up the links appear. Sections stay reachable
+   on mobile by scrolling — nothing is lost, only chrome. */
+.site-nav {
+  display: none;
+}
+
+@media (min-width: 640px) {
+  .site-nav {
+    display: block;
+  }
+}
+
+/* .site-nav__list gets its row + gap from .cluster in the HTML;
+   nothing to add here. */
+
+/* Links: muted at rest, full-strength on hover — the inverse of body
+   links (no underline; the header is a control surface, not prose).
+   Block padding grows the tap/click target without moving anything. */
+.site-nav__link {
+  display: inline-block;
+  padding-block: var(--space-sm);
+
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-small);
+  color: var(--color-text-muted);
+  text-decoration: none;
+
+  transition: color var(--duration-fast) var(--ease-standard);
+}
+
+.site-nav__link:hover {
+  color: var(--color-text);
+}
+
+/* Current page / section: mark the active link in your HTML with
+   aria-current="page" and it reads at full strength — communicated
+   to screen readers AND sighted visitors by the same attribute. */
+.site-nav__link[aria-current="page"] {
+  color: var(--color-text);
+}
+
