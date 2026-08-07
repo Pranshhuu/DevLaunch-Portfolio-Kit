@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<!-- ==========================================================================
+     DevLaunch Portfolio Kit — index.html
+     ==========================================================================
+     👋 START HERE (after reading docs/start-here.md)
+
+     HOW TO CUSTOMIZE THIS FILE
+     ─ Only edit content between the pencil markers:
+          ✏️ EDIT: what to change
+          …your content…
+          /EDIT
+     ─ Every section is wrapped in START/END comments and is fully
+       independent. To remove a section, delete everything between its
+       START and END lines (or wrap it in a comment, like the Writing
+       section below). To reorder sections, cut and paste whole blocks.
+     ─ Never remove the skip link, landmarks, or aria attributes —
+       they're what makes your site accessible (and impressive).
+     ========================================================================== -->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- ✏️ EDIT: Page identity — your name, role, and description.
+       These control your browser tab, Google result, and link previews. -->
+  <title>Alex Sharma — Computer Science Student &amp; Developer</title>
+  <meta name="description" content="Portfolio of Alex Sharma, a computer science student building web apps and machine-learning projects. Open to internships.">
+
+  <!-- Social link previews (Open Graph). The image lives at assets/images/og-image.png —
+       a template to make your own is included in assets/. -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Alex Sharma — Computer Science Student &amp; Developer">
+  <meta property="og:description" content="Web apps, machine-learning projects, and case studies. Open to internships.">
+  <meta property="og:image" content="assets/images/og-image.png">
+  <!-- /EDIT -->
+
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+
+  <!-- Stylesheets — order matters: tokens first, components later files build on earlier ones -->
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/typography.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+
+  <!-- 🎨 WANT A DIFFERENT LOOK? Un-comment ONE theme line below.
+       Each theme restyles the whole site. See docs/customization.md.
+  <link rel="stylesheet" href="css/themes/indigo.css">
+  <link rel="stylesheet" href="css/themes/emerald.css">
+  -->
+
+  <!-- Theme setup runs early so dark mode never "flashes" on load -->
+  <script src="js/theme.js"></script>
+
+  <!-- ✏️ EDIT: Structured data — helps search engines understand who you are.
+       Update name, url, jobTitle, and your profile links. -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Alex Sharma",
+    "url": "https://alexsharma.dev",
+    "jobTitle": "Computer Science Student",
+    "sameAs": [
+      "https://github.com/alexsharma",
+      "https://www.linkedin.com/in/alexsharma"
+    ]
+  }
+  </script>
+  <!-- /EDIT -->
+</head>
+
+<body>
+
+  <!-- Skip link: invisible until a keyboard user presses Tab.
+       🚫 Do not remove — it's the first thing accessibility reviews check. -->
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <div class="page">
+
+    <!-- ====================================================================
+         HEADER — START
+         ==================================================================== -->
+    <header class="site-header">
+      <div class="site-header__inner container-wide">
+
+        <!-- ✏️ EDIT: Your name (links back to the top of the page) -->
+        <a class="brand" href="#top">Alex Sharma</a>
+        <!-- /EDIT -->
+
+        <nav class="site-nav" aria-label="Main">
+          <ul class="site-nav__list cluster cluster-lg">
+            <li><a class="site-nav__link" href="#work">Work</a></li>
+            <li><a class="site-nav__link" href="#about">About</a></li>
+            <li><a class="site-nav__link" href="#contact">Contact</a></li>
+          </ul>
+        </nav>
+
+        <div class="cluster">
+          <!-- Theme toggle — wired up by js/theme.js. The label is updated
+               by the script; the visually-hidden text is what screen
+               readers announce. -->
+          <button class="theme-toggle" type="button" data-theme-toggle>
+            <span class="theme-toggle__icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Switch color theme</span>
+          </button>
+
+          <!-- ✏️ EDIT: Header CTA — where should the header button point?
+               Common choices: #contact, your resume, or a booking link. -->
+          <a class="btn btn--primary" href="#contact">Get in touch</a>
+          <!-- /EDIT -->
+        </div>
+
+      </div>
+    </header>
+    <!-- HEADER — END -->
+
+    <main class="site-main" id="main" tabindex="-1">
+
+      <!-- ==================================================================
+           HERO — START
+           Your 7-second first impression: who you are, what you do,
+           and one clear action.
+           ================================================================== -->
+      <section class="hero" id="top" aria-labelledby="hero-title">
+        <div class="container-wide">
+          <div class="hero__inner">
+
+            <!-- ✏️ EDIT: Eyebrow — a short label above your name.
+                 Examples: your degree + year, your city, your specialty. -->
+            <p class="eyebrow">CS Student · Class of 2027</p>
+            <!-- /EDIT -->
+
+            <!-- ✏️ EDIT: Your name -->
+            <h1 class="text-display" id="hero-title">Alex Sharma</h1>
+            <!-- /EDIT -->
+
+            <!-- ✏️ EDIT: Positioning statement — ONE sentence on what you
+                 build and for whom. Specific beats clever. -->
+            <p class="text-lead text-balance">
+              I build web applications and machine-learning projects,
+              and I write about what I learn along the way.
+            </p>
+            <!-- /EDIT -->
+
+            <!-- ✏️ EDIT: Availability — recruiters look for this line.
+                 Delete this <p> block if you'd rather not show a status. -->
+            <p class="availability-badge">
+              <span class="availability-badge__dot" aria-hidden="true"></span>
+              Available for summer 2027 internships
+            </p>
+            <!-- /EDIT -->
+
+            <!-- ✏️ EDIT: Hero actions — one primary, one secondary. -->
+            <div class="cluster">
+              <a class="btn btn--primary" href="#work">See my work</a>
+              <a class="btn btn--secondary" href="resume.html">View resume</a>
+            </div>
+            <!-- /EDIT -->
+
+          </div>
+        </div>
+      </section>
+      <!-- HERO — END -->
+
+      <!-- ==================================================================
+           PROOF STRIP — START
+           Quick credibility signals: numbers, credentials, results.
+           Keep each item short. Three to five items is the sweet spot.
+           Optional: delete this whole section if you're just starting out —
+           an empty boast reads worse than no boast.
+           ================================================================== -->
+      <section class="section proof" aria-label="Highlights">
+        <div class="container-wide">
+
+          <!-- ✏️ EDIT: Your proof points -->
+          <ul class="proof__list cluster cluster-lg">
+            <li class="proof__item">3× hackathon finalist</li>
+            <li class="proof__item">Google Summer of Code contributor</li>
+            <li class="proof__item">Teaching assistant, Data Structures</li>
+          </ul>
+          <!-- /EDIT -->
+
+        </div>
+      </section>
+      <!-- PROOF STRIP — END -->
+
+      <!-- ==================================================================
+           SELECTED PROJECTS — START
+           Your best 3–5 projects. Quality over quantity: one project with
+           a real outcome beats six tutorial clones. Each card links to a
+           full case study page in projects/ — see projects/project-template.html
+           to create one, and docs/customization.md to add more cards.
+           ================================================================== -->
+      <section class="section" id="work" aria-labelledby="work-title">
+        <div class="container-wide">
+
+          <header class="section__header">
+            <p class="eyebrow">Selected Work</p>
+            <h2 id="work-title">Projects</h2>
+          </header>
+
+          <div class="grid-2">
+
+            <!-- ─── Project card 1 ─────────────────────────────────────── -->
+            <article class="work-card">
+              <div class="work-card__body stack">
+
+                <!-- ✏️ EDIT: Project 1 — title, description, tags, link -->
+                <h3 class="work-card__title">
+                  <a class="work-card__link" href="projects/example-project.html">StudySync</a>
+                </h3>
+                <p class="work-card__desc text-muted">
+                  A collaborative flashcard app used by 400+ students in my
+                  department. Real-time sync, spaced-repetition scheduling,
+                  and offline support.
+                </p>
+                <ul class="cluster" aria-label="Technologies used">
+                  <li class="tag">JavaScript</li>
+                  <li class="tag">Firebase</li>
+                  <li class="tag">IndexedDB</li>
+                </ul>
+                <p>
+                  <a class="work-card__cta" href="projects/example-project.html">
+                    View case study<span class="visually-hidden"> for StudySync</span>
+                  </a>
+                </p>
+                <!-- /EDIT -->
+
+              </div>
+            </article>
+
+            <!-- ─── Project card 2 ─────────────────────────────────────── -->
+            <article class="work-card">
+              <div class="work-card__body stack">
+
+                <!-- ✏️ EDIT: Project 2 — title, description, tags, link -->
+                <h3 class="work-card__title">
+                  <a class="work-card__link" href="projects/project-template.html">Commit Coach</a>
+                </h3>
+                <p class="work-card__desc text-muted">
+                  A CLI tool that reviews your Git history and suggests
+                  clearer commit messages using a local language model.
+                  120 GitHub stars.
+                </p>
+                <ul class="cluster" aria-label="Technologies used">
+                  <li class="tag">Python</li>
+                  <li class="tag">Git</li>
+                  <li class="tag">LLMs</li>
+                </ul>
+                <p>
+                  <a class="work-card__cta" href="projects/project-template.html">
+                    View case study<span class="visually-hidden"> for Commit Coach</span>
+                  </a>
+                </p>
+                <!-- /EDIT -->
+
+              </div>
+            </article>
+
+            <!-- ─── Project card 3 ─────────────────────────────────────── -->
+            <article class="work-card">
+              <div class="work-card__body stack">
+
+                <!-- ✏️ EDIT: Project 3 — title, description, tags, link -->
+                <h3 class="work-card__title">
+                  <a class="work-card__link" href="projects/project-template.html">Campus Compute</a>
+                </h3>
+                <p class="work-card__desc text-muted">
+                  Course project turned open-source: a fair-use scheduler for
+                  our lab's shared GPU server. Cut average wait time from
+                  4 hours to 40 minutes.
+                </p>
+                <ul class="cluster" aria-label="Technologies used">
+                  <li class="tag">Go</li>
+                  <li class="tag">Docker</li>
+                  <li class="tag">Linux</li>
+                </ul>
+                <p>
+                  <a class="work-card__cta" href="projects/project-template.html">
+                    View case study<span class="visually-hidden"> for Campus Compute</span>
+                  </a>
+                </p>
+                <!-- /EDIT -->
+
+              </div>
+            </article>
+
+          </div>
+        </div>
+      </section>
+      <!-- SELECTED PROJECTS — END -->
+
+      <!-- ==================================================================
+           ABOUT — START
+           Short and human. What you're studying/building, what you care
+           about, and one memorable detail. Recruiters read this AFTER
+           your projects convinced them — reward the click.
+           ================================================================== -->
+      <section class="section" id="about" aria-labelledby="about-title">
+        <div class="container">
+
+          <header class="section__header">
+            <p class="eyebrow">About</p>
+            <h2 id="about-title">A little about me</h2>
+          </header>
+
+          <!-- ✏️ EDIT: Your bio — two or three short paragraphs. -->
+          <div class="prose">
+            <p>
+              I'm a computer science student who likes shipping things people
+              actually use. Most of my projects start as a problem my friends
+              or classmates complain about — then I can't stop thinking about
+              it until there's a working version.
+            </p>
+            <p>
+              Right now I'm digging into distributed systems and practical
+              machine learning. Away from the keyboard, I run a weekly
+              algorithms study group and I'm slowly learning to make a
+              decent cup of filter coffee.
+            </p>
+          </div>
+          <!-- /EDIT -->
+
+        </div>
+      </section>
+      <!-- ABOUT — END -->
+
+      <!-- ==================================================================
+           SKILLS — START
+           Grouped, not a 40-icon wall. Three groups with 4–6 items each
+           reads as focused; more reads as padding. Only list what you
+           could discuss in an interview.
+           ================================================================== -->
+      <section class="section" id="skills" aria-labelledby="skills-title">
+        <div class="container-wide">
+
+          <header class="section__header">
+            <p class="eyebrow">Toolbox</p>
+            <h2 id="skills-title">Skills</h2>
+          </header>
+
+          <div class="grid-3">
+
+            <!-- ✏️ EDIT: Skill groups — rename groups and items freely. -->
+            <div class="skill-group stack-sm">
+              <h3 class="text-h4">Languages</h3>
+              <ul class="cluster" aria-label="Languages">
+                <li class="tag">JavaScript</li>
+                <li class="tag">Python</li>
+                <li class="tag">Go</li>
+                <li class="tag">SQL</li>
+              </ul>
+            </div>
+
+            <div class="skill-group stack-sm">
+              <h3 class="text-h4">Web &amp; Data</h3>
+              <ul class="cluster" aria-label="Web and data">
+                <li class="tag">Node.js</li>
+                <li class="tag">REST APIs</li>
+                <li class="tag">PostgreSQL</li>
+                <li class="tag">Firebase</li>
+              </ul>
+            </div>
+
+            <div class="skill-group stack-sm">
+              <h3 class="text-h4">Tools &amp; Practices</h3>
+              <ul class="cluster" aria-label="Tools and practices">
+                <li class="tag">Git</li>
+                <li class="tag">Docker</li>
+                <li class="tag">Linux</li>
+                <li class="tag">Testing</li>
+              </ul>
+            </div>
+            <!-- /EDIT -->
+
+          </div>
+        </div>
+      </section>
+      <!-- SKILLS — END -->
+
+      <!-- ==================================================================
+           WRITING — START (OPTIONAL MODULE — currently OFF)
+           Links to articles you've published elsewhere (dev.to, Medium,
+           your newsletter). To turn this section ON: delete the comment
+           markers on the lines directly below and above the END line.
+           ==================================================================
+
+      <section class="section" id="writing" aria-labelledby="writing-title">
+        <div class="container">
+
+          <header class="section__header">
+            <p class="eyebrow">Writing</p>
+            <h2 id="writing-title">Things I've written</h2>
+          </header>
+
+          <ul class="writing-list stack-xl">
+            <li class="writing-item stack-sm">
+              <h3 class="text-h4">
+                <a href="https://dev.to/yourname/your-article">What building my first real app taught me about state</a>
+              </h3>
+              <p class="eyebrow">dev.to · Jan 2026</p>
+            </li>
+            <li class="writing-item stack-sm">
+              <h3 class="text-h4">
+                <a href="https://dev.to/yourname/another-article">A gentle introduction to spaced repetition algorithms</a>
+              </h3>
+              <p class="eyebrow">dev.to · Nov 2025</p>
+            </li>
+          </ul>
+
+        </div>
+      </section>
+
+      WRITING — END -->
+
+      <!-- ==================================================================
+           CONTACT — START
+           The close. One clear action, your email in plain sight
+           (people copy-paste it), and where else to find you.
+           ================================================================== -->
+      <section class="section" id="contact" aria-labelledby="contact-title">
+        <div class="container">
+
+          <header class="section__header">
+            <p class="eyebrow">Contact</p>
+            <h2 id="contact-title">Let's build something</h2>
+          </header>
+
+          <div class="stack-xl">
+
+            <!-- ✏️ EDIT: Contact pitch + your real email (both places!) -->
+            <p class="text-lead">
+              I'm open to internships, interesting projects, and good
+              conversations about software. The fastest way to reach me:
+            </p>
+            <p>
+              <a class="btn btn--primary" href="mailto:hello@alexsharma.dev">hello@alexsharma.dev</a>
+            </p>
+            <!-- /EDIT -->
+
+            <!-- ✏️ EDIT: Social links — update the URLs, remove any you
+                 don't use, or add more list items following the pattern. -->
+            <ul class="cluster cluster-lg" aria-label="Elsewhere on the internet">
+              <li><a class="social-link" href="https://github.com/alexsharma">GitHub</a></li>
+              <li><a class="social-link" href="https://www.linkedin.com/in/alexsharma">LinkedIn</a></li>
+              <li><a class="social-link" href="https://twitter.com/alexsharma">Twitter</a></li>
+            </ul>
+            <!-- /EDIT -->
+
+          </div>
+        </div>
+      </section>
+      <!-- CONTACT — END -->
+
+    </main>
+
+    <!-- ====================================================================
+         FOOTER — START
+         ==================================================================== -->
+    <footer class="site-footer">
+      <div class="site-footer__inner container-wide">
+
+        <!-- ✏️ EDIT: Your name. The year updates automatically when
+             JavaScript is on; the written year is the no-JS fallback. -->
+        <p class="text-small text-muted">
+          © <span data-current-year>2026</span> Alex Sharma
+        </p>
+        <!-- /EDIT -->
+
+        <!-- Attribution — optional. You're welcome to remove this line;
+             keeping it helps other developers find the kit. 🙏 -->
+        <p class="text-small text-muted">
+          Built with <a href="https://devlaunch.example.com">DevLaunch</a>
+        </p>
+
+      </div>
+    </footer>
+    <!-- FOOTER — END -->
+
+  </div><!-- /.page -->
+
+  <!-- Enhancements: footer year + optional scroll-reveal. The site is
+       fully functional without this file. -->
+  <script src="js/main.js" defer></script>
+
+</body>
+</html>
