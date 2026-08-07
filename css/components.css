@@ -14,8 +14,8 @@
     4. Header & navigation    ✅ this file
     5. Theme toggle           ✅ this file
     6. Work cards & tags      ✅ this file
-    7. Skills & social links  ⏳ next sprint
-    8. Footer chrome          ⏳ next sprint
+    7. Skills & social links  ✅ this file
+    8. Footer chrome          ✅ this file
 
    RULES THIS FILE OBEYS
    ---------------------
@@ -517,4 +517,152 @@
   color: var(--color-text-muted);
 
   white-space: nowrap;                /* a tag never breaks mid-word */
+}
+
+
+/* ==========================================================================
+   7. SKILLS & SOCIAL LINKS
+   ==========================================================================
+   Two small components that lean entirely on the type system and
+   borders — no new colors, no new shapes. Skill pills REUSE the .tag
+   component from section 6 (the HTML marks each skill as <li class="tag">),
+   so there is no separate "skill pill" style here — only the group
+   wrapper and a gentle interactive hover scoped to skills alone.
+
+       <div class="skill-group stack-sm">
+         <h3 class="text-h4">Languages</h3>
+         <ul class="cluster" aria-label="Languages">
+           <li class="tag">JavaScript</li>
+         </ul>
+       </div>
+   ========================================================================== */
+
+/* The category block. Internal spacing (heading → pills) is .stack-sm
+   from layout.css; the group only needs its heading to read as a quiet
+   label rather than a section title. */
+.skill-group__heading,
+.skill-group > .text-h4 {
+  color: var(--color-text-muted);
+}
+
+/* Skills are browsable, so their pills get a subtle hover — but ONLY
+   inside a skill group. The same .tag inside a work card stays inert
+   (it's a label there, not a target). Scoping by ancestor keeps one
+   component honest in two contexts without a new class. */
+.skill-group .tag {
+  transition:
+    border-color var(--duration-fast) var(--ease-standard),
+    color var(--duration-fast) var(--ease-standard);
+}
+
+.skill-group .tag:hover {
+  border-color: var(--color-border-strong);
+  color: var(--color-text);
+}
+
+
+/* -- SOCIAL LINKS ----------------------------------------------------------
+   Understated text links for the contact row. They read as calm prose
+   until hovered/focused, then firm up. External destinations get a
+   small diagonal arrow via CSS — no HTML change needed, no icon files.
+
+       <ul class="cluster cluster-lg" aria-label="Elsewhere on the internet">
+         <li><a class="social-link" href="https://github.com/…">GitHub</a></li>
+       </ul>
+   ========================================================================== */
+
+.social-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-small);
+  color: var(--color-text-muted);
+  text-decoration: none;
+
+  transition: color var(--duration-fast) var(--ease-standard);
+}
+
+/* Hover AND keyboard focus get the same emphasis. (The visible focus
+   RING itself comes from base.css :focus-visible — never redefined
+   here; this only strengthens the text color to match hover.) */
+.social-link:hover,
+.social-link:focus-visible {
+  color: var(--color-text);
+}
+
+/* External indicator: any absolute-URL link gets a diagonal arrow —
+   the shared web sign for "opens elsewhere". Attribute-driven, so it
+   applies automatically with zero markup changes. aria-hidden isn't
+   needed: CSS ::after content isn't reliably announced, and the visible
+   link text ("GitHub") already names the destination. */
+.social-link[href^="http"]::after {
+  content: "\2197";                   /* ↗ north-east arrow */
+  font-size: var(--font-size-meta);
+  color: var(--color-text-muted);
+  transition:
+    transform var(--duration-fast) var(--ease-standard),
+    color var(--duration-fast) var(--ease-standard);
+}
+
+.social-link[href^="http"]:hover::after,
+.social-link[href^="http"]:focus-visible::after {
+  color: var(--color-text);
+}
+
+/* The arrow's nudge is motion — opt-in only, so reduced-motion visitors
+   get the color emphasis without movement. */
+@media (prefers-reduced-motion: no-preference) {
+  .social-link[href^="http"]:hover::after,
+  .social-link[href^="http"]:focus-visible::after {
+    transform: translate(var(--space-xs), calc(-1 * var(--space-xs)));
+  }
+}
+
+
+/* ==========================================================================
+   8. FOOTER CHROME
+   ==========================================================================
+   The closing band of every page. Arrangement (the wrapping row, its
+   padding) is layout.css's .site-footer__inner; this section owns only
+   how the footer LOOKS — the hairline that separates it from the page,
+   and calming the footer's link to match the understated .social-link
+   restraint from section 7.
+
+       <footer class="site-footer">
+         <div class="site-footer__inner container-wide">
+           <p class="text-small text-muted">© <span data-current-year>2026</span> Your Name</p>
+           <p class="text-small text-muted">Built with <a href="…">DevLaunch</a></p>
+         </div>
+       </footer>
+   ========================================================================== */
+
+/* A single hairline lifts the footer off the last section. The footer
+   sits at the very bottom (pushed there by the .page flex column in
+   layout.css), so it needs a top edge, not a full surface fill —
+   borders-first, exactly like the header's bottom edge. */
+.site-footer {
+  border-block-start: 1px solid var(--color-border);
+}
+
+/* The footer's own link (e.g. "Built with DevLaunch"): muted to sit
+   quietly in the closing line, firming to full text color on hover and
+   keyboard focus. The visible focus RING still comes from base.css
+   :focus-visible — only the color emphasis is added here. The muted
+   underline from base.css is kept: it keeps the link distinguishable
+   by more than color (WCAG 1.4.1). */
+.site-footer a {
+  color: var(--color-text-muted);
+  text-decoration-color: var(--color-border);
+  transition:
+    color var(--duration-fast) var(--ease-standard),
+    text-decoration-color var(--duration-fast) var(--ease-standard);
+}
+
+.site-footer a:hover,
+.site-footer a:focus-visible {
+  color: var(--color-text);
+  text-decoration-color: currentColor;
 }
